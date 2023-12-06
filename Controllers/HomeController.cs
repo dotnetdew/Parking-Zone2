@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Parking_Zone.Models;
 using System.Diagnostics;
+using System.Text.Encodings.Web;
 
 namespace Parking_Zone.Controllers
 {
@@ -18,6 +19,10 @@ namespace Parking_Zone.Controllers
             return View();
         }
 
+        public string Welcome(string name, int Id = 1)
+        {
+            return HtmlEncoder.Default.Encode($"Name: {name}, Id = {Id}");
+        }
         public IActionResult Privacy()
         {
             return View();
