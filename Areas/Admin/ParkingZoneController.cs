@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -20,13 +20,13 @@ namespace Parking_Zone.Areas.Admin
             _context = context;
         }
 
-        // GET: Admin/ParkingZone
+        // GET: Admin/ParkingZones
         public async Task<IActionResult> Index()
         {
             return View(await _context.ParkingZones.ToListAsync());
         }
 
-        // GET: Admin/ParkingZone/Details/5
+        // GET: Admin/ParkingZones/Details/5
         public async Task<IActionResult> Details(Guid? id)
         {
             if (id == null)
@@ -44,13 +44,13 @@ namespace Parking_Zone.Areas.Admin
             return View(parkingZone);
         }
 
-        // GET: Admin/ParkingZone/Create
+        // GET: Admin/ParkingZones/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Admin/ParkingZone/Create
+        // POST: Admin/ParkingZones/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -67,7 +67,7 @@ namespace Parking_Zone.Areas.Admin
             return View(parkingZone);
         }
 
-        // GET: Admin/ParkingZone/Edit/5
+        // GET: Admin/ParkingZones/Edit/5
         public async Task<IActionResult> Edit(Guid? id)
         {
             if (id == null)
@@ -83,7 +83,7 @@ namespace Parking_Zone.Areas.Admin
             return View(parkingZone);
         }
 
-        // POST: Admin/ParkingZone/Edit/5
+        // POST: Admin/ParkingZones/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -118,7 +118,7 @@ namespace Parking_Zone.Areas.Admin
             return View(parkingZone);
         }
 
-        // GET: Admin/ParkingZone/Delete/5
+        // GET: Admin/ParkingZones/Delete/5
         public async Task<IActionResult> Delete(Guid? id)
         {
             if (id == null)
@@ -136,7 +136,7 @@ namespace Parking_Zone.Areas.Admin
             return View(parkingZone);
         }
 
-        // POST: Admin/ParkingZone/Delete/5
+        // POST: Admin/ParkingZones/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(Guid id)
