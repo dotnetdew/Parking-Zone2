@@ -55,7 +55,7 @@ namespace Parking_Zone.Areas.Admin
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Address,DateOfEstablishment")] ParkingZone parkingZone)
+        public async Task<IActionResult> Create(ParkingZone parkingZone)
         {
             if (ModelState.IsValid)
             {
@@ -88,7 +88,7 @@ namespace Parking_Zone.Areas.Admin
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(Guid id, [Bind("Id,Name,Address,DateOfEstablishment")] ParkingZone parkingZone)
+        public async Task<IActionResult> Edit(Guid id, ParkingZone parkingZone)
         {
             if (id != parkingZone.Id)
             {
