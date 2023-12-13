@@ -75,11 +75,6 @@ namespace Parking_Zone.Areas.Admin
 
             var parkingZone = _repository.GetById(id);
 
-            if (parkingZone == null)
-                return NotFound();
-
-            _repository.Update(parkingZone);
-
             return View(parkingZone);
         }
 
@@ -90,7 +85,7 @@ namespace Parking_Zone.Areas.Admin
         [ValidateAntiForgeryToken]
         public IActionResult Edit(Guid id, ParkingZone parkingZone)
         {
-            if (id == null)
+            if (id != parkingZone.Id)
             {
                 return NotFound();
             }

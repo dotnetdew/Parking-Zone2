@@ -4,11 +4,11 @@ using Parking_Zone.Data;
 
 namespace Parking_Zone.Repositories
 {
-    public class GenericRepository<T> : IGenericRepository<T> where T : class
+    public class Repository<T> : IRepository<T> where T : class
     {
         private readonly ApplicationDbContext _context;
         private DbSet<T> entities;
-        public GenericRepository(ApplicationDbContext context)
+        public Repository(ApplicationDbContext context)
         {
             _context = context;
             entities = context.Set<T>();
@@ -41,6 +41,17 @@ namespace Parking_Zone.Repositories
         {
             if(entity == null) { throw new ArgumentNullException(nameof(entity)); }
             entities.Update(entity);
+
+            _context.SaveChanges();
+        }
+
+        public void Delete(Guid id)
+        {
+            T existing = entities.Find(id);
+
+            if(existing != null) { entities.Remove(existing); }
+
+            else throw new ArgumentNullException($"{nameof(existing)} is null");
 
             _context.SaveChanges();
         }
