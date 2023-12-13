@@ -1,11 +1,11 @@
 ﻿namespace Parking_Zone.Services
 {
-    public interface IBaseService<T> where T : class
+    public interface IService<T> where T : class
     {
         IEnumerable<T> GetAll();
         T GetById(Guid id);
-        void Delete(Guid id);
+        void Insert(T entity);
         void Update(T entity);
-        void Create(T entity);
+        void Delete(T entity);
     }
 }
