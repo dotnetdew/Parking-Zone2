@@ -9,7 +9,7 @@ namespace Parking_Zone.Services
         private readonly IRepository<T> _repository;
         public Service(IRepository<T> repository)
         {
-            this._repository = repository;
+            _repository = repository;
         }
         public void Delete(T entity)
         {
