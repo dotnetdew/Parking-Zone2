@@ -7,16 +7,14 @@ namespace Parking_Zone.Services
     public class Service<T> : IService<T> where T : class
     {
         private readonly IRepository<T> _repository;
-        private readonly ApplicationDbContext _context;
-        public Service(IRepository<T> repository, ApplicationDbContext context)
+        public Service(IRepository<T> repository)
         {
             this._repository = repository;
-            this._context = context;
         }
         public void Delete(T entity)
         {
             _repository.Delete(entity);
-            _context.SaveChanges();
+            _repository.Save();
         }
 
         public IEnumerable<T> GetAll()
@@ -32,13 +30,13 @@ namespace Parking_Zone.Services
         public void Insert(T entity)
         {
             _repository.Insert(entity);
-            _context.SaveChanges();
+            _repository.Save();
         }
 
         public void Update(T entity)
         {
             _repository.Update(entity);
-            _context.SaveChanges();
+            _repository.Save();
         }
     }
 }

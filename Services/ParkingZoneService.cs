@@ -6,12 +6,9 @@ namespace Parking_Zone.Services
 {
     public class ParkingZoneService : Service<ParkingZone>, IParkingZoneService
     {
-        private readonly IParkingZoneRepository _repository;
-        private readonly ApplicationDbContext _context;
-        public ParkingZoneService(IParkingZoneRepository repository, ApplicationDbContext context) : base(repository, context)
+        public ParkingZoneService(IParkingZoneRepository repository, ApplicationDbContext context) : base(repository)
         {
-            this._repository = repository;
-            this._context = context;
+
         }
     }
 }

@@ -15,16 +15,16 @@ namespace Parking_Zone.Areas.Admin
     [Area("Admin")]
     public class ParkingZoneController : Controller
     {
-        private readonly IParkingZoneService _service;
-        public ParkingZoneController(IParkingZoneService service)
+        private readonly IParkingZoneService _parkingZoneService;
+        public ParkingZoneController(IParkingZoneService parkingZoneService)
         {
-            this._service = service;
+            this._parkingZoneService = parkingZoneService;
         }
 
         // GET: Admin/ParkingZones
         public IActionResult Index()
         {
-            return View(_service.GetAll());
+            return View(_parkingZoneService.GetAll());
         }
 
         // GET: Admin/ParkingZones/Details/5
@@ -35,7 +35,7 @@ namespace Parking_Zone.Areas.Admin
                 return NotFound();
             }
 
-            var parkingZone = _service.GetById(id);
+            var parkingZone = _parkingZoneService.GetById(id);
             if (parkingZone == null)
             {
                 return NotFound();
@@ -60,7 +60,7 @@ namespace Parking_Zone.Areas.Admin
             if (ModelState.IsValid)
             {
                 parkingZone.Id = Guid.NewGuid();
-                _service.Insert(parkingZone);
+                _parkingZoneService.Insert(parkingZone);
                 return RedirectToAction(nameof(Index));
             }
             return View(parkingZone);
@@ -74,7 +74,10 @@ namespace Parking_Zone.Areas.Admin
                 return NotFound();
             }
 
-            var parkingZone = _service.GetById(id);
+            var parkingZone = _parkingZoneService.GetById(id);
+
+            if (parkingZone == null)
+                return NotFound();
 
             return View(parkingZone);
         }
@@ -95,11 +98,11 @@ namespace Parking_Zone.Areas.Admin
             {
                 try
                 {
-                    _service.Update(parkingZone);
+                    _parkingZoneService.Update(parkingZone);
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (_service.GetById(id) is null)
+                    if (_parkingZoneService.GetById(id) is null)
                     {
                         return NotFound();
                     }
@@ -121,7 +124,7 @@ namespace Parking_Zone.Areas.Admin
                 return NotFound();
             }
 
-            var parkingZone = _service.GetById(id);
+            var parkingZone = _parkingZoneService.GetById(id);
             if (parkingZone == null)
             {
                 return NotFound();
@@ -135,10 +138,10 @@ namespace Parking_Zone.Areas.Admin
         [ValidateAntiForgeryToken]
         public IActionResult DeleteConfirmed(Guid id)
         {
-            var parkingZone = _service.GetById(id);
+            var parkingZone = _parkingZoneService.GetById(id);
             if (parkingZone != null)
             {
-                _service.Delete(parkingZone);
+                _parkingZoneService.Delete(parkingZone);
             }
 
             return RedirectToAction(nameof(Index));

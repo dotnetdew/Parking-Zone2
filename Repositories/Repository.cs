@@ -23,36 +23,20 @@ namespace Parking_Zone.Repositories
         }
         public void Insert(T entity)
         {
-            if(entity == null) { throw new ArgumentNullException(nameof(entity)); }
-
             entities.Add(entity);
-
-            _context.SaveChanges();
         }
         public void Delete(T entity)
         {
-            if (entity == null) { throw new ArgumentNullException(nameof(entity)); }
             entities.Remove(entity);
-
-            _context.SaveChanges();
         }
 
         public void Update(T entity)
         {
-            if(entity == null) { throw new ArgumentNullException(nameof(entity)); }
             entities.Update(entity);
-
-            _context.SaveChanges();
         }
 
-        public void Delete(Guid id)
+        public void Save()
         {
-            T existing = entities.Find(id);
-
-            if(existing != null) { entities.Remove(existing); }
-
-            else throw new ArgumentNullException($"{nameof(existing)} is null");
-
             _context.SaveChanges();
         }
     }
