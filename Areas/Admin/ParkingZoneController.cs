@@ -59,7 +59,6 @@ namespace Parking_Zone.Areas.Admin
         {
             if (ModelState.IsValid)
             {
-                parkingZone.Id = Guid.NewGuid();
                 _parkingZoneService.Insert(parkingZone);
                 return RedirectToAction(nameof(Index));
             }

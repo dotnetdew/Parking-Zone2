@@ -10,5 +10,11 @@ namespace Parking_Zone.Services
         {
 
         }
+        public override void Insert(ParkingZone parkingZone)
+        {
+            parkingZone.Id = Guid.NewGuid();
+            parkingZone.DateOfEstablishment = DateTime.UtcNow;
+            base.Insert(parkingZone);
+        }
     }
 }

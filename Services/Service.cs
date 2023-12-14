@@ -11,29 +11,29 @@ namespace Parking_Zone.Services
         {
             _repository = repository;
         }
-        public void Delete(T entity)
+        public virtual void Delete(T entity)
         {
             _repository.Delete(entity);
             _repository.Save();
         }
 
-        public IEnumerable<T> GetAll()
+        public virtual IEnumerable<T> GetAll()
         {
             return _repository.GetAll();
         }
 
-        public T GetById(Guid id)
+        public virtual T GetById(Guid id)
         {
             return _repository.GetById(id);
         }
 
-        public void Insert(T entity)
+        public virtual void Insert(T entity)
         {
             _repository.Insert(entity);
             _repository.Save();
         }
 
-        public void Update(T entity)
+        public virtual void Update(T entity)
         {
             _repository.Update(entity);
             _repository.Save();
