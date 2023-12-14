@@ -4,7 +4,7 @@ using Parking_Zone.Repositories;
 
 namespace Parking_Zone.Repositories
 {
-    public class ParkingZoneRepository : GenericRepository<ParkingZone>, IParkingZoneRepository
+    public class ParkingZoneRepository : Repository<ParkingZone>, IParkingZoneRepository
     {
         public ParkingZoneRepository(ApplicationDbContext context) : base(context)
         {
