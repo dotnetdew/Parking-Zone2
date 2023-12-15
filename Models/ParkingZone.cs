@@ -6,4 +6,5 @@ public class ParkingZone
     public string Name { get; set; }
     public string Address { get; set; }
     public DateTime DateOfEstablishment { get; set; }
+    public string Description { get; set; }
 }

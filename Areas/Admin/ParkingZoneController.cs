@@ -9,6 +9,7 @@ using Parking_Zone.Data;
 using Parking_Zone.Models;
 using Parking_Zone.Repositories;
 using Parking_Zone.Services;
+using Parking_Zone.ViewModels.ParkingZone;
 
 namespace Parking_Zone.Areas.Admin
 {
@@ -24,7 +25,8 @@ namespace Parking_Zone.Areas.Admin
         // GET: Admin/ParkingZones
         public IActionResult Index()
         {
-            return View(_parkingZoneService.GetAll());
+            var VMs = ParkingZoneDetailsVM.MapTo(_parkingZoneService.GetAll());
+            return View(VMs);
         }
 
         // GET: Admin/ParkingZones/Details/5
@@ -55,14 +57,15 @@ namespace Parking_Zone.Areas.Admin
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(ParkingZone parkingZone)
+        public IActionResult Create(ParkingZoneCreateVM VM)
         {
             if (ModelState.IsValid)
             {
+                var parkingZone = ParkingZoneCreateVM.MapToModel(VM);
                 _parkingZoneService.Insert(parkingZone);
                 return RedirectToAction(nameof(Index));
             }
-            return View(parkingZone);
+            return View(VM);
         }
 
         // GET: Admin/ParkingZones/Edit/5
@@ -86,9 +89,9 @@ namespace Parking_Zone.Areas.Admin
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit(Guid id, ParkingZone parkingZone)
+        public IActionResult Edit(Guid id, ParkingZoneEditVM VM)
         {
-            if (id != parkingZone.Id)
+            if (id != VM.Id)
             {
                 return NotFound();
             }
@@ -97,7 +100,7 @@ namespace Parking_Zone.Areas.Admin
             {
                 try
                 {
-                    _parkingZoneService.Update(parkingZone);
+                    _parkingZoneService.Update(ParkingZoneEditVM.MapTo(VM, id));
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -112,7 +115,7 @@ namespace Parking_Zone.Areas.Admin
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(parkingZone);
+            return View(VM);
         }
 
         // GET: Admin/ParkingZones/Delete/5
