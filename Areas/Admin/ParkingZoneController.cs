@@ -40,7 +40,7 @@ namespace Parking_Zone.Areas.Admin
             }
 
             var parkingZone = _parkingZoneService.GetById(id);
-            var vm = new ParkingZoneListItemVM(parkingZone);
+            var vm = new ParkingZoneDetailsVM(parkingZone);
             if (vm == null)
             {
                 return NotFound();
