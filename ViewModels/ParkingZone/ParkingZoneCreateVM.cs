@@ -13,7 +13,6 @@ namespace Parking_Zone.ViewModels.ParkingZone
                 Name = this.Name,
                 Address = this.Address,
                 Description = this.Description,
-                DateOfEstablishment = DateTime.Now,
             };
         }
     }

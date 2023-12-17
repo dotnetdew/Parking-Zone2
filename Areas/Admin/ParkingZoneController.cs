@@ -26,9 +26,9 @@ namespace Parking_Zone.Areas.Admin
         public IActionResult Index()
         {
             var parkingZones = _parkingZoneService.GetAll();
-            var VMs = parkingZones.Select(x => new ParkingZoneDetailsVM(x));
+            var vms = parkingZones.Select(x => new ParkingZoneDetailsVM(x));
 
-            return View(VMs);
+            return View(vms);
         }
 
         // GET: Admin/ParkingZones/Details/5
@@ -40,13 +40,13 @@ namespace Parking_Zone.Areas.Admin
             }
 
             var parkingZone = _parkingZoneService.GetById(id);
-            var VM = new ParkingZoneListItemVM(parkingZone);
-            if (VM == null)
+            var vm = new ParkingZoneListItemVM(parkingZone);
+            if (vm == null)
             {
                 return NotFound();
             }
 
-            return View(VM);
+            return View(vm);
         }
 
         // GET: Admin/ParkingZones/Create
