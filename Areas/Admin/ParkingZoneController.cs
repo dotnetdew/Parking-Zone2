@@ -9,6 +9,7 @@ using Parking_Zone.Data;
 using Parking_Zone.Models;
 using Parking_Zone.Repositories;
 using Parking_Zone.Services;
+using Parking_Zone.ViewModels.ParkingZone;
 
 namespace Parking_Zone.Areas.Admin
 {
@@ -24,7 +25,10 @@ namespace Parking_Zone.Areas.Admin
         // GET: Admin/ParkingZones
         public IActionResult Index()
         {
-            return View(_parkingZoneService.GetAll());
+            var parkingZones = _parkingZoneService.GetAll();
+            var vms = parkingZones.Select(x => new ParkingZoneListItemVM(x));
+
+            return View(vms);
         }
 
         // GET: Admin/ParkingZones/Details/5
@@ -36,12 +40,13 @@ namespace Parking_Zone.Areas.Admin
             }
 
             var parkingZone = _parkingZoneService.GetById(id);
-            if (parkingZone == null)
+            var vm = new ParkingZoneDetailsVM(parkingZone);
+            if (vm == null)
             {
                 return NotFound();
             }
 
-            return View(parkingZone);
+            return View(vm);
         }
 
         // GET: Admin/ParkingZones/Create
@@ -55,14 +60,18 @@ namespace Parking_Zone.Areas.Admin
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(ParkingZone parkingZone)
+        public IActionResult Create(ParkingZoneCreateVM VM)
         {
+            if (VM is null)
+                return BadRequest();
+
             if (ModelState.IsValid)
             {
+                var parkingZone = VM.MapToModel();
                 _parkingZoneService.Insert(parkingZone);
                 return RedirectToAction(nameof(Index));
             }
-            return View(parkingZone);
+            return View(VM);
         }
 
         // GET: Admin/ParkingZones/Edit/5
@@ -78,7 +87,9 @@ namespace Parking_Zone.Areas.Admin
             if (parkingZone == null)
                 return NotFound();
 
-            return View(parkingZone);
+            var parkingZoneVM = new ParkingZoneEditVM(parkingZone);
+
+            return View(parkingZoneVM);
         }
 
         //POST: Admin/ParkingZones/Edit/5
@@ -86,8 +97,10 @@ namespace Parking_Zone.Areas.Admin
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit(Guid id, ParkingZone parkingZone)
+        public IActionResult Edit(Guid id, ParkingZoneEditVM parkingZoneVM)
         {
+            var parkingZone = _parkingZoneService.GetById(id);
+
             if (id != parkingZone.Id)
             {
                 return NotFound();
@@ -97,6 +110,7 @@ namespace Parking_Zone.Areas.Admin
             {
                 try
                 {
+                    parkingZoneVM.MapToModel(parkingZone);
                     _parkingZoneService.Update(parkingZone);
                 }
                 catch (DbUpdateConcurrencyException)
